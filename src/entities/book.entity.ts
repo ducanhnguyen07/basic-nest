@@ -11,6 +11,6 @@ export class Book {
   @Column({ name: 'description'})
   description: string;
 
-  @Column({ name: 'fee', type: 'decimal' })
+  @Column({ name: 'fee', type: 'decimal', default: 0 })
   fee: number;
 }

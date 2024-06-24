@@ -1,5 +1,5 @@
 import { Book } from './book.entity';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from './user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity('invoices')

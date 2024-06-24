@@ -1,12 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { Book } from 'src/entities/book.entity';
-import { Invoice } from 'src/entities/invoice.entity';
-import { UserEntity } from 'src/entities/user.entity';
 import { DataSource } from 'typeorm';
 
 config();
-console.log(process.cwd());
 
 const configService = new ConfigService();
 
