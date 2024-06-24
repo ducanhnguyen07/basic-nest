@@ -19,6 +19,6 @@ export default new DataSource({
   password: configService.get<string>(process.env.DATABASE_PASSWORD) || '1234',
   database: configService.get<string>(process.env.DATABASE) || 'test',
   synchronize: false,
-  migrations: ['migrations/**'],
-  entities: [UserEntity, Book, Invoice],
+  entities: [`${__dirname}/../src/**/*.entity{.ts,.js}`],
+  migrations: [`${__dirname}/migrations/*{.ts,.js}`],
 });

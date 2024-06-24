@@ -20,8 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "typeorm:create-migrations": "npm run typeorm -- migration:create",
-    "typeorm:generate-migrations": "npm run typeorm -- -d ./typeorm.config.ts migration:generate",
-    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./typeorm.config.ts",
+    "typeorm:generate-migrations": "npm run typeorm -- -d ./typeorm/typeorm.config.ts migration:generate",
+    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./typeorm/typeorm.config.ts",
     "typeorm:revert-migrations": "npm run typeorm migration:revert -- -d ./typeorm.config.ts"
   },
   "dependencies": {
