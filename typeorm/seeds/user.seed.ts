@@ -10,20 +10,7 @@ export default class UserSeeder implements Seeder {
   ): Promise<any> {
     const repository = dataSource.getRepository(UserEntity);
 
-    const data = {
-      username: 'admin',
-      password: await hash('admin', 10),
-    };
-
-    const user = await repository.findOneBy({ username: data.username });
-
-    // Insert only one record with this username.
-    if (!user) {
-      await repository.insert([data]);
-    }
-
     // ---------------------------------------------------
-
     const userFactory = await factoryManager.get(UserEntity);
 
     // Insert only one record.
