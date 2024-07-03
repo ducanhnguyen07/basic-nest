@@ -33,7 +33,7 @@ export class BooksController {
   }
 
   @Post('/store/:id')
-  store(@Param('id', ParseIntPipe) id: number): Promise<CreateBookDto | string> {
+  store(@Param('id') id: string): Promise<CreateBookDto | string> {
     return this.booksService.storeBook(id);
   }
 }

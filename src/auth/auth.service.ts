@@ -41,7 +41,7 @@ export class AuthService {
 
     const refreshToken = this.createRefreshToken(payload);
 
-    const userId: number = parseInt(user.id);
+    const userId: string = user.id;
     this.updateUserRefreshToken(refreshToken, userId);
 
     response.cookie('refresh_token', refreshToken, {
@@ -73,7 +73,7 @@ export class AuthService {
     
         const refreshToken = this.createRefreshToken(payload);
     
-        const userId: number = (user.id);
+        const userId: string = (user.id);
         this.updateUserRefreshToken(refreshToken, userId);
     
         response.clearCookie('refresh_token');
@@ -96,7 +96,7 @@ export class AuthService {
     return refreshToken;
   };
 
-  updateUserRefreshToken = async (refreshToken: string, id: number) => {
+  updateUserRefreshToken = async (refreshToken: string, id: string) => {
     await this.userRepository.update(id, { refreshToken: refreshToken });
   };
 }

@@ -4,7 +4,7 @@ import { IsNumber, IsString } from "class-validator";
 export class CreateBookDto {
   @Expose()
   @IsNumber()
-  id: number;
+  id: string;
 
   @Expose()
   @IsString()

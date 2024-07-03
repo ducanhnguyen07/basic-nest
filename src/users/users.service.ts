@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
@@ -58,12 +62,12 @@ export class UsersService {
       }
     } catch (error) {
       console.log(error);
-      return "Failed!";
+      return 'Failed!';
     }
   }
 
   updateUser = async (
-    id: number,
+    id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UpdateUserDto> => {
     try {
@@ -84,18 +88,16 @@ export class UsersService {
       Object.assign(updateUser, updateUserDto);
       const updatedUser = await this.userRepository.save(updateUser);
 
-      const responseUser = plainToInstance(CreateUserResponseDto, updatedUser,
-        {
-          excludeExtraneousValues: true
-        }
-      )
+      const responseUser = plainToInstance(CreateUserResponseDto, updatedUser, {
+        excludeExtraneousValues: true,
+      });
       return responseUser;
     } catch (error) {
       throw new NotFoundException(error);
     }
   };
 
-  deleteUser = async (id: number) => {
+  deleteUser = async (id: string) => {
     const deleteUser = await this.userRepository.findOne({
       where: {
         id: id,
@@ -109,49 +111,34 @@ export class UsersService {
     this.userRepository.delete(deleteUser);
   };
 
-  // getInvoiceByUser = async (): Promise<IInvoiceByUser[]> => {
-  //   // const query = `
-  //   //   SELECT invoices.id, users.username, books.name
-  //   //   FROM users
-  //   //   INNER JOIN invoices ON users.id = invoices."userId"
-  //   //   INNER JOIN books ON invoices."bookId" = books.id;
-  //   // `;
-  //   // const result = await this.userRepository.query(query);
+  getInvoiceByUser = async (id: string): Promise<number> => {
+    const users = await this.userRepository
+      .createQueryBuilder('users')
+      .leftJoinAndSelect('users.books', 'books')
+      .where('users.id = :id', { id })
+      .getOne();
 
-  //   // return result;
+    const fee = users.books.map(book => book).reduce((acc, cur) => {
+      return acc + Number(cur.fee)
+    }, 0);
 
-  //   const invoices = await this.invoiceRepository
-  //     .createQueryBuilder('invoice')
-  //     .leftJoin('invoice.user', 'user')
-  //     .leftJoin('invoice.book', 'book')
-  //     .select([
-  //       'invoice.id as id', // Đổi tên id của Invoice thành id
-  //       'user.username as username', // Lấy username của User
-  //       'book.name as name', // Lấy name của Book và đổi tên thành name
-  //     ])
-  //     .getRawMany(); // Sử dụng getRawMany để lấy kết quả dưới dạng mảng các object
+    return fee;
+  };
 
-  //   // Biến đổi kết quả từ dạng Object thành dạng IInvoiceByUser
-  //   const transformedInvoices: IInvoiceByUser[] = invoices.map((invoice) => ({
-  //     id: invoice.id,
-  //     username: invoice.username,
-  //     name: invoice.name,
-  //   }));
-
-  //   return transformedInvoices;
-  // };
-
-  findUserByToken = async (refreshToken: string): Promise<UserEntity | undefined> => {
+  findUserByToken = async (
+    refreshToken: string,
+  ): Promise<UserEntity | undefined> => {
     const userByToken = await this.userRepository.findOne({
       where: {
-        refreshToken: refreshToken
-      }
+        refreshToken: refreshToken,
+      },
     });
     return userByToken;
   };
 
   isValidPassword = (plain: string, hash: string): boolean => {
-    return compareSync(plain, hash);
+    // return compareSync(plain, hash);
+    return plain === hash;
   };
 
   getHashPassword = (password: string): string => {

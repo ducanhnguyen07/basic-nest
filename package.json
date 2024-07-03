@@ -23,7 +23,6 @@
     "typeorm:generate-migrations": "npm run typeorm -- -d ./typeorm/typeorm.config.ts migration:generate",
     "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./typeorm/typeorm.config.ts",
     "typeorm:revert-migrations": "npm run typeorm migration:revert -- -d ./typeorm/typeorm.config.ts",
-
     "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run  -d ./typeorm/typeorm.config.ts"
   },
   "dependencies": {
@@ -50,6 +49,7 @@
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.20",
     "typeorm-extension": "^3.5.1",
+    "uuidv4": "^6.2.13",
     "validator": "^13.12.0"
   },
   "devDependencies": {

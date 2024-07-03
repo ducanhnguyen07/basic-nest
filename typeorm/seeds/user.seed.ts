@@ -9,14 +9,12 @@ export default class UserSeeder implements Seeder {
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
     const repository = dataSource.getRepository(UserEntity);
-
-    // ---------------------------------------------------
     const userFactory = await factoryManager.get(UserEntity);
 
     // Insert only one record.
     await userFactory.save();
 
     // Insert many records in database.
-    await userFactory.saveMany(40);
+    await userFactory.saveMany(19);
   }
 }

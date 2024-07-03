@@ -32,7 +32,7 @@ export class UsersController {
 
   @Patch('update/:id')
   updateUser(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
     @Body() user: UpdateUserDto,
   ): Promise<UpdateUserDto> {
     return this.usersService.updateUser(id, user);
@@ -40,15 +40,15 @@ export class UsersController {
 
   @Delete('delete/:id')
   deleteUser(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id') id: string,
   ): Promise<void> {
     return this.usersService.deleteUser(id);
   }
 
-  // @Get('invoice')
-  // async getInvoiceByUser(): Promise<IInvoiceByUser[]> {
-  //   return this.usersService.getInvoiceByUser();
-  // }
+  @Get('invoice/:id')
+  async getInvoiceByUser(@Param('id') id: string,): Promise<number> {
+    return this.usersService.getInvoiceByUser(id);
+  }
 
   @Get('info-user')
   getInfoUser(@User() user: any) {

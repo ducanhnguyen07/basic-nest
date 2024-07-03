@@ -58,7 +58,7 @@ export class BooksService {
     return `This action removes a #${id} book`;
   }
 
-  async storeBook(id: number) {
+  async storeBook(id: string) {
     try {
       const book = await this.bookRepository.findOne({
         where: {

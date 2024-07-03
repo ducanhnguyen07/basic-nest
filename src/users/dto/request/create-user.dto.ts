@@ -5,7 +5,7 @@ import { IsName } from "src/decorator/name.decorator";
 export class CreateUserDto {
   @Expose()
   @IsNumber()
-  id: number;
+  id: string;
 
   @Expose()
   @IsString()

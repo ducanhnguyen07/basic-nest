@@ -1,10 +1,10 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Book } from './book.entity';
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryColumn({ name: 'id' })
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'username'})
   username: string;

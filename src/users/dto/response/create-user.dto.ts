@@ -4,7 +4,7 @@ import { IsNumber, IsString } from "class-validator";
 export class CreateUserResponseDto {
   @Expose()
   @IsNumber()
-  id: number;
+  id: string;
 
   @Expose()
   @IsString()
