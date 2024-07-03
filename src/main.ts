@@ -2,7 +2,7 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { TransformInterceptor } from './core/transform.interceptor';
+import { TransformInterceptor } from './common/transform/transform.interceptor';
 import cookieParser from 'cookie-parser';
 
 require('dotenv').config();

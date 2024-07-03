@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Book } from './book.entity';
+import { GenderConstant } from '../common/constant/gender.constant';
 
 @Entity('users')
 export class UserEntity {
@@ -11,6 +12,14 @@ export class UserEntity {
 
   @Column({ name: 'password'})
   password: string;
+
+  @Column({
+    name: 'gender',
+    type: 'enum',
+    enum: GenderConstant,
+    default: GenderConstant.MALE
+  })
+  gender: number;
 
   @Column({ name: 'refreshToken', default: '' })
   refreshToken: string;
