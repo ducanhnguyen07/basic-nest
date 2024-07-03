@@ -14,6 +14,7 @@ import { UserEntity } from '../entities/user.entity';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { IInvoiceByUser } from 'src/interfaces/invoiceByUser.interface';
 import { CreateUserResponseDto } from './dto/response/create-user.dto';
+import { User } from 'src/decorator/customize';
 
 @Controller('users')
 export class UsersController {
@@ -44,8 +45,13 @@ export class UsersController {
     return this.usersService.deleteUser(id);
   }
 
-  @Get('invoice')
-  async getInvoiceByUser(): Promise<IInvoiceByUser[]> {
-    return this.usersService.getInvoiceByUser();
+  // @Get('invoice')
+  // async getInvoiceByUser(): Promise<IInvoiceByUser[]> {
+  //   return this.usersService.getInvoiceByUser();
+  // }
+
+  @Get('info-user')
+  getInfoUser(@User() user: any) {
+    console.log(user)
   }
 }

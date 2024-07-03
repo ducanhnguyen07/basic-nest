@@ -4,11 +4,10 @@ import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../entities/user.entity';
 import { BooksModule } from 'src/books/books.module';
-import { InvoicesModule } from 'src/invoices/invoices.module';
 import { UserMockService } from './users-mock.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), BooksModule, InvoicesModule],
+  imports: [TypeOrmModule.forFeature([UserEntity]), BooksModule],
   controllers: [UsersController],
   providers: [
     {

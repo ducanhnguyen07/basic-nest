@@ -5,7 +5,6 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BooksModule } from './books/books.module';
-import { InvoicesModule } from './invoices/invoices.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
@@ -16,7 +15,6 @@ import { DatabaseModule } from './database/database.module';
       isGlobal: true,
     }),
     BooksModule,
-    InvoicesModule,
     DatabaseModule,
   ],
   controllers: [AppController],

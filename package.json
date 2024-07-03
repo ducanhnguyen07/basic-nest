@@ -22,9 +22,12 @@
     "typeorm:create-migrations": "npm run typeorm -- migration:create",
     "typeorm:generate-migrations": "npm run typeorm -- -d ./typeorm/typeorm.config.ts migration:generate",
     "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./typeorm/typeorm.config.ts",
-    "typeorm:revert-migrations": "npm run typeorm migration:revert -- -d ./typeorm/typeorm.config.ts"
+    "typeorm:revert-migrations": "npm run typeorm migration:revert -- -d ./typeorm/typeorm.config.ts",
+    "seedsss": "ts-node -r tsconfig-paths/register dist/src/main.js seed -d typeorm/typeorm.config.ts",
+    "seed": "npm run build && ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d typeorm/typeorm.config.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^9.0.0",
@@ -46,6 +49,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.5.1",
     "validator": "^13.12.0"
   },
   "devDependencies": {

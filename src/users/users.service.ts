@@ -7,7 +7,6 @@ import { plainToInstance } from 'class-transformer';
 import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { IInvoiceByUser } from 'src/interfaces/invoiceByUser.interface';
-import { Invoice } from 'src/entities/invoice.entity';
 import { Book } from 'src/entities/book.entity';
 import { CreateUserResponseDto } from './dto/response/create-user.dto';
 
@@ -16,7 +15,7 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(Invoice)
+    @InjectRepository(Book)
     private readonly invoiceRepository: Repository<Book>,
   ) {}
 
@@ -110,37 +109,37 @@ export class UsersService {
     this.userRepository.delete(deleteUser);
   };
 
-  getInvoiceByUser = async (): Promise<IInvoiceByUser[]> => {
-    // const query = `
-    //   SELECT invoices.id, users.username, books.name
-    //   FROM users
-    //   INNER JOIN invoices ON users.id = invoices."userId"
-    //   INNER JOIN books ON invoices."bookId" = books.id;
-    // `;
-    // const result = await this.userRepository.query(query);
+  // getInvoiceByUser = async (): Promise<IInvoiceByUser[]> => {
+  //   // const query = `
+  //   //   SELECT invoices.id, users.username, books.name
+  //   //   FROM users
+  //   //   INNER JOIN invoices ON users.id = invoices."userId"
+  //   //   INNER JOIN books ON invoices."bookId" = books.id;
+  //   // `;
+  //   // const result = await this.userRepository.query(query);
 
-    // return result;
+  //   // return result;
 
-    const invoices = await this.invoiceRepository
-      .createQueryBuilder('invoice')
-      .leftJoin('invoice.user', 'user')
-      .leftJoin('invoice.book', 'book')
-      .select([
-        'invoice.id as id', // Đổi tên id của Invoice thành id
-        'user.username as username', // Lấy username của User
-        'book.name as name', // Lấy name của Book và đổi tên thành name
-      ])
-      .getRawMany(); // Sử dụng getRawMany để lấy kết quả dưới dạng mảng các object
+  //   const invoices = await this.invoiceRepository
+  //     .createQueryBuilder('invoice')
+  //     .leftJoin('invoice.user', 'user')
+  //     .leftJoin('invoice.book', 'book')
+  //     .select([
+  //       'invoice.id as id', // Đổi tên id của Invoice thành id
+  //       'user.username as username', // Lấy username của User
+  //       'book.name as name', // Lấy name của Book và đổi tên thành name
+  //     ])
+  //     .getRawMany(); // Sử dụng getRawMany để lấy kết quả dưới dạng mảng các object
 
-    // Biến đổi kết quả từ dạng Object thành dạng IInvoiceByUser
-    const transformedInvoices: IInvoiceByUser[] = invoices.map((invoice) => ({
-      id: invoice.id,
-      username: invoice.username,
-      name: invoice.name,
-    }));
+  //   // Biến đổi kết quả từ dạng Object thành dạng IInvoiceByUser
+  //   const transformedInvoices: IInvoiceByUser[] = invoices.map((invoice) => ({
+  //     id: invoice.id,
+  //     username: invoice.username,
+  //     name: invoice.name,
+  //   }));
 
-    return transformedInvoices;
-  };
+  //   return transformedInvoices;
+  // };
 
   findUserByToken = async (refreshToken: string): Promise<UserEntity | undefined> => {
     const userByToken = await this.userRepository.findOne({

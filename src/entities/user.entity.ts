@@ -1,5 +1,5 @@
-import { Invoice } from './invoice.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
+import { Book } from './book.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -12,9 +12,9 @@ export class UserEntity {
   @Column({ name: 'password'})
   password: string;
 
-  @Column({ name: 'refreshToken'})
+  @Column({ name: 'refreshToken', default: '' })
   refreshToken: string;
 
-  @OneToMany(() => Invoice, invoice => invoice.userId)
-  invoices: Invoice[];
+  @ManyToMany(() => Book, (book) => book.users)
+  books: Book[];
 }
